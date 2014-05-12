@@ -1,12 +1,12 @@
 module FanSQS
-  class SQSQueue
+  class Queue
     class << self
       def create_message(klass, msg_body)
-        queue(klass.queue).send_message({ class: klass.name, body: msg_body }.to_json)
+        instantiate(klass.queue).send_message({ class: klass.name, body: msg_body }.to_json)
       end
 
       # Find out if the queue exists. If it does not exist, create a new one
-      def queue(qname)
+      def instantiate(qname)
         exists?(qname) || AWS.sqs.create(qname)
       end
 

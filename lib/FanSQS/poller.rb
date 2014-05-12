@@ -2,13 +2,13 @@ module FanSQS
   class Poller
     # TODO: check for new queues created as well
     def self.guard
-      # infinite loop
       loop do
         # AWS::SQS::Client.new.list_queues
-        AWS.sqs.queues.each do |queue|
+        # AWS.sqs.queues.each do |queue|
+        FanSQS::Worker.queue_names.unique.each do |name|
+          queue = Queue.instantiate(name)
           messages = queue.receive_message(limit: 10)
           messages.each do |message|
-            # sqs.queues.first.poll do |msg|; puts "Incoming Message ====== '#{msg.body}'"; end
             process(message)
           end
         end
@@ -23,6 +23,7 @@ module FanSQS
       end
     end
 
+    private
     def self.parse(msg)
       json = JSON.parse(msg)
       return json
