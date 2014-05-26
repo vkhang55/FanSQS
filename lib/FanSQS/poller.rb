@@ -5,7 +5,8 @@ module FanSQS
       loop do
         # AWS::SQS::Client.new.list_queues
         # AWS.sqs.queues.each do |queue|
-        FanSQS::Worker.queue_names.unique.each do |name|
+        # FanSQS::Worker.queue_names.unique.each do |name|
+        get_queues.unique.each do |name|
           queue = Queue.instantiate(name)
           messages = queue.receive_message(limit: 10)
           messages.each do |message|
@@ -24,6 +25,11 @@ module FanSQS
     end
 
     private
+    def self.get_queues
+      @sqs_client ||= AWS::SQS::Client.new
+      @sqs_client.list_queues[:queue_urls].map { |q| q.split('/').last }
+    end
+
     def self.parse(msg)
       json = JSON.parse(msg)
       return json
