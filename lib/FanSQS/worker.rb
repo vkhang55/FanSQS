@@ -6,8 +6,6 @@ module FanSQS
     end
 
     module ClassMethods
-      attr_accessor :queue
-
       def perform_async(*args)
         name = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :fan_sqs_queue
         queue = FanSQS::Queue.instantiate(name)

@@ -2,7 +2,7 @@ module FanSQS
   class Poller
     def self.start
       loop do
-        get_queues.uniq.each do |name|
+        queues.each do |name|
           queue = Queue.instantiate(name)
           queue.receive_messages(limit: 10) do |message|
             process(message.body)
@@ -20,9 +20,9 @@ module FanSQS
     end
 
     private
-    def self.get_queues
+    def self.queues
       @sqs_client ||= AWS::SQS::Client.new
-      @sqs_client.list_queues[:queue_urls].map { |q| q.split('/').last }
+      @sqs_client.list_queues[:queue_urls].map { |q| q.split('/').last }.uniq
     end
 
     def self.parse(msg)
