@@ -1,6 +1,6 @@
 module FanSQS
   class Poller
-    def self.guard
+    def self.start
       loop do
         get_queues.uniq.each do |name|
           queue = Queue.instantiate(name)
@@ -13,7 +13,7 @@ module FanSQS
 
     def self.process(msg)
       message = parse(msg)
-      klass = Object::const_get(message['class'])
+      klass = Object::const_get(message[:class])
       fork do
         klass.perform(message['message'])
       end
@@ -26,10 +26,11 @@ module FanSQS
     end
 
     def self.parse(msg)
-      json = JSON.parse(msg)
+      json = JSON.parse(msg, symbolize_names: true)
       return json
     rescue JSON::ParserError # malformed JSON
         return nil
     end
+
   end
 end
