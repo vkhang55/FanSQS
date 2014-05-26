@@ -7,6 +7,7 @@ module FanSQS
         # AWS.sqs.queues.each do |queue|
         # FanSQS::Worker.queue_names.unique.each do |name|
         get_queues.unique.each do |name|
+          puts "QUEUE ======= #{name}"
           queue = Queue.instantiate(name)
           messages = queue.receive_message(limit: 10)
           messages.each do |message|

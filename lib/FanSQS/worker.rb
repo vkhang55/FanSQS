@@ -5,7 +5,7 @@ module FanSQS
       base.class_attribute :fan_sqs_options
     end
 
-    def.self.perform_async(options={})
+    def self.perform_async(options = {})
       queue = Queue.instantiate(fan_sqs_options[:queue] || :default)
       queue.create_message(options.to_json)
     end
