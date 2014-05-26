@@ -4,8 +4,7 @@ module FanSQS
       loop do
         get_queues.uniq.each do |name|
           queue = Queue.instantiate(name)
-          messages = queue.receive_message(limit: 10)
-          messages.each do |message|
+          queue.receive_messages(limit: 10) do |message|
             process(message.body)
           end
         end

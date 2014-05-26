@@ -9,7 +9,7 @@ module FanSQS
       attr_accessor :queue
 
       def perform_async(options = {})
-        name = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :default
+        name = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :fan_sqs_queue
         queue = FanSQS::Queue.instantiate(name)
         params = { class: self.name, message: options }
         queue.send_message(params.to_json)
@@ -17,7 +17,7 @@ module FanSQS
 
       def set_fan_sqs_options(options = {})
         if options.empty?
-          self.fan_sqs_options_hash = { queue: :default }
+          self.fan_sqs_options_hash = { queue: :fan_sqs_queue }
         else
           self.fan_sqs_options_hash = options
         end
