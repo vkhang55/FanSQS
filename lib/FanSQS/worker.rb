@@ -11,8 +11,8 @@ module FanSQS
       def perform_async(options = {})
         name = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :default
         queue = FanSQS::Queue.instantiate(name)
-        options.merge!(class: self.class.name)
-        queue.send_message(options.to_json)
+        params = { class: self.name, message: options }
+        queue.send_message(params.to_json)
       end
 
       def set_fan_sqs_options(options = {})

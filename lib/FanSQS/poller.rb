@@ -1,13 +1,8 @@
 module FanSQS
   class Poller
-    # TODO: check for new queues created as well
     def self.guard
       loop do
-        # AWS::SQS::Client.new.list_queues
-        # AWS.sqs.queues.each do |queue|
-        # FanSQS::Worker.queue_names.uniq.each do |name|
         get_queues.uniq.each do |name|
-          puts "QUEUE ======= #{name}"
           queue = Queue.instantiate(name)
           messages = queue.receive_message(limit: 10)
           messages.each do |message|
@@ -21,7 +16,7 @@ module FanSQS
       message = parse(msg)
       klass = Object::const_get(message['class'])
       fork do
-        klass.perform(message['body'])
+        klass.perform(message['message'])
       end
     end
 
