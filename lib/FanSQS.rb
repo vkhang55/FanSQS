@@ -1,6 +1,7 @@
 require "FanSQS/version"
-require "FanSQS/poller"
 require "FanSQS/queue"
+require "FanSQS/queues_cache"
+require "FanSQS/poller"
 require "FanSQS/worker"
 
 module FanSQS

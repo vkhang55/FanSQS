@@ -1,9 +1,9 @@
 module FanSQS
   class Poller
     def self.start
+      @queues_cache = FanSQS::QueuesCache.new
       loop do
-        queues.each do |name|
-          queue = Queue.instantiate(name)
+        @queues_cache.fetch.each do |queue|
           queue.receive_messages(limit: 10) do |message|
             process(message.body)
           end
@@ -20,11 +20,6 @@ module FanSQS
     end
 
     private
-    def self.queues
-      @sqs_client ||= AWS::SQS::Client.new
-      @sqs_client.list_queues[:queue_urls].map { |q| q.split('/').last }.uniq
-    end
-
     def self.parse(msg)
       json = JSON.parse(msg, symbolize_names: true)
       return json

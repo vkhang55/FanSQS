@@ -6,10 +6,9 @@ module FanSQS
       end
 
       # Find out if the queue exists. If it does not exist, create a new one
+      # This line below has a high chance of causing confusion as it will try to use either FanSQS::Queue or AWS::SQS::Queue. Maybe use the class from AWS gem instead?
       def instantiate(qname)
         name = formatted_queue_name(qname)
-        # this line below will cause confusion as it will try to use either FanSQS::Queue or AWS::SQS::Queue.
-        # Maybe use the class from AWS gem instead?
         exists?(name) || AWS.sqs.queues.create(name)
       end
 
