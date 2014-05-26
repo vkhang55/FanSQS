@@ -1,11 +1,8 @@
 module FanSQS
   class Poller
     def self.start
-      i = 0
       loop do
         get_queues.uniq.each do |name|
-          puts "QUEUE[#{i}] ====== #{name}"
-          i += 1
           queue = Queue.instantiate(name)
           queue.receive_messages(limit: 10) do |message|
             process(message.body)
@@ -18,7 +15,7 @@ module FanSQS
       message = parse(msg)
       klass = Object::const_get(message[:class])
       fork do
-        klass.perform(message[:message])
+        klass.send(:perform, *message[:message])
       end
     end
 
