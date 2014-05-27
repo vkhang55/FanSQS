@@ -7,7 +7,7 @@ module FanSQS
         @queues_cache = FanSQS::QueuesCache.new(qnames)
         loop do
           @queues_cache.fetch.each do |queue|
-            Thread.new do
+            Thread.new do # Allows for multiple concurrent (non-blocking) HTTP requests to SQS
               queue.receive_messages(limit: 10) do |message|
                 process(message.body)
               end
