@@ -14,9 +14,7 @@ module FanSQS
           queue = FanSQS::Queue.instantiate(qname)
           params = { class: self.name, arguments: args }
           sent_message = nil
-          begin 
-            sent_message = queue.send_message(params.to_json)
-          end while sent_message = nil # retry until receives sent_message confirmation
+          sent_message = queue.send_message(params.to_json) while sent_message == nil # retry until receives sent_message confirmation
         end
       end
 
