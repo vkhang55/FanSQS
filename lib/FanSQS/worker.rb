@@ -14,7 +14,7 @@ module FanSQS
           qname = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :fan_sqs_queue
           queue = FanSQS::Queue.instantiate(qname)
           params = { class: self.name, arguments: args }
-          queue.send_message(params.to_json)
+          sent_message = queue.send_message(params.to_json) until sent_message # retry until receives sent_message confirmation
         end
       end
 

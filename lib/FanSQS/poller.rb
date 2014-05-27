@@ -20,7 +20,7 @@ module FanSQS
 
       def process(msg)
         message = MessageParser.parse(msg)
-        fork do
+        Thread.new do
           begin
             klass = Object::const_get(message[:class])
             klass.send(:perform, *message[:arguments])
