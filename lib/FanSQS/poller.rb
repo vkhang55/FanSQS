@@ -1,30 +1,38 @@
 module FanSQS
   class Poller
-    def self.start
-      @queues_cache = FanSQS::QueuesCache.new
-      loop do
-        @queues_cache.fetch.each do |queue|
-          queue.receive_messages(limit: 10) do |message|
-            process(message.body)
+    class << self
+      def start(qnames = [])
+        @queues_cache = FanSQS::QueuesCache.new(qnames)
+        loop do
+          @queues_cache.fetch.each do |queue|
+            queue.receive_messages(limit: 10) do |message|
+              process(message.body)
+            end
           end
         end
       end
-    end
 
-    def self.process(msg)
-      message = parse(msg)
-      klass = Object::const_get(message[:class])
-      fork do
-        klass.send(:perform, *message[:message])
+      private
+
+      def process(msg)
+        message = MessageParser.parse(msg)
+        fork do
+          begin
+            klass = Object::const_get(message[:class])
+            klass.send(:perform, *message[:arguments])
+          rescue ArgumentError => e
+            store_exception(e, message)
+          end
+        end
       end
-    end
 
-    private
-    def self.parse(msg)
-      json = JSON.parse(msg, symbolize_names: true)
-      return json
-    rescue JSON::ParserError # malformed JSON
-      return nil
+      def store_exception(exception, message)
+        error_message = { class: message[:class],
+                          arguments: message[:arguments],
+                          stack_trace: exception.backtrace.join("\n") }
+        queue = FanSQS::Queue.instantiate(FanSQS::ErrorQueue)
+        queue.send_message(error_message.to_json)
+      end
     end
   end
 end
