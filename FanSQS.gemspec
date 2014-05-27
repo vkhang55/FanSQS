@@ -18,8 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "rake"
+  spec.add_runtime_dependency "aws-sdk", "= 1.41.0"
   spec.add_development_dependency "bundler", "~> 1.5"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "aws-sdk"
-  spec.add_development_dependency "resque"
 end
