@@ -18,6 +18,7 @@ module FanSQS
     end
 
     private
+    # Fetch all queues except for the queue equals to FanSQS::ErrorQueue
     def fetch_all_queues
       if @counter % 20 == 0
         @counter = 1 # reset counter
@@ -30,6 +31,7 @@ module FanSQS
       end
     end
 
+    # Fetch only specific queues. Can also fetch queues with prefix = "xxx*"
     def fetch_specific_queues
       return @queues unless @queues.empty?  
       @qnames.each do |qname|

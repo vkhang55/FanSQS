@@ -1,3 +1,5 @@
+require 'thread'
+
 module FanSQS
   class Poller
     class << self
@@ -5,8 +7,10 @@ module FanSQS
         @queues_cache = FanSQS::QueuesCache.new(qnames)
         loop do
           @queues_cache.fetch.each do |queue|
-            queue.receive_messages(limit: 10) do |message|
-              process(message.body)
+            Thread.new do
+              queue.receive_messages(limit: 10) do |message|
+                process(message.body)
+              end
             end
           end
         end
