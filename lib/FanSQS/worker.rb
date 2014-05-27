@@ -9,12 +9,14 @@ module FanSQS
 
     module ClassMethods
       def perform_async(*args)
-        # Allows for multiple concurrent (non-blocking) HTTP requests to SQS
-        Thread.new do
+        Thread.new do  # Allows for multiple concurrent (non-blocking) HTTP requests to SQS
           qname = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :fan_sqs_queue
           queue = FanSQS::Queue.instantiate(qname)
           params = { class: self.name, arguments: args }
-          sent_message = queue.send_message(params.to_json) until sent_message # retry until receives sent_message confirmation
+          sent_message = nil
+          begin 
+            sent_message = queue.send_message(params.to_json)
+          end while sent_message = nil # retry until receives sent_message confirmation
         end
       end
 
