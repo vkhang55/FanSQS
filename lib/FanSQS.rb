@@ -8,7 +8,7 @@ require "FanSQS/worker"
 
 # Reference: [http://ruby.awsblog.com/post/Tx16QY1CI5GVBFT/Threading-with-the-AWS-SDK-for-Ruby]
 # Issue this line will give significant performance boost
-AWS.eager_autoload!
+AWS.eager_autoload! AWS::SQS
 
 # $pool = Pool.new(50) # Performs max at 50 threads. Need to make this value configurable later.
 

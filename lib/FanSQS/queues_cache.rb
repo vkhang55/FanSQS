@@ -20,7 +20,7 @@ module FanSQS
     private
     # Fetch all queues except for the queue equals to FanSQS::ErrorQueue
     def fetch_all_queues
-      if @counter % 20 == 0
+      if @counter % 20000 == 0
         @counter = 1 # reset counter
         @queue_names = @sqs_client.list_queues[:queue_urls].map { |q| q.split('/').last }.uniq
         @queue_names.reject! { |name| name == FanSQS::ErrorQueue.to_s } # do not include the error queue

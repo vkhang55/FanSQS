@@ -25,10 +25,6 @@ module FanSQS
           self.fan_sqs_options_hash = options
         end
       end
-
-      def enqueue(*msg_body)
-        LocalQueue.send_message(self, msg_body)
-      end
     end
   end
 end
