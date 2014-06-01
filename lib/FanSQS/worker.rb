@@ -9,7 +9,6 @@ module FanSQS
 
     module ClassMethods
       def perform_async(*args)
-        # $pool.schedule do # Allows for multiple concurrent (non-blocking) HTTP requests to SQS
         FanSQS.pool.schedule do # Allows for multiple concurrent (non-blocking) HTTP requests to SQS
           queue, sent_message = nil
           qname = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :fan_sqs_queue
