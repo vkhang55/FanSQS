@@ -5,6 +5,7 @@ require "FanSQS/queue_wrapper"
 require "FanSQS/queues_cache"
 require "FanSQS/poller"
 require "FanSQS/worker"
+require "aws"
 
 # Reference: [http://ruby.awsblog.com/post/Tx16QY1CI5GVBFT/Threading-with-the-AWS-SDK-for-Ruby]
 # Issue this line will give significant performance boost

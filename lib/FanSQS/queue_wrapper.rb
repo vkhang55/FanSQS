@@ -15,6 +15,7 @@ module FanSQS
       end
 
       def create_new(name)
+        binding.pry
         AWS.sqs.queues.create(name.to_s)
       end
 
