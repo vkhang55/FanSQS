@@ -24,7 +24,7 @@ module FanSQS
         @counter = 1 # reset counter
         @queue_names = @sqs_client.list_queues[:queue_urls].map { |q| q.split('/').last }.uniq
         @queue_names.reject! { |name| name == FanSQS::ErrorQueue.to_s } # do not include the error queue
-        @queues = @queue_names.inject([]) { |queues, name| queues << LocalQueue.instantiate(name) } # reset cache & fetch queues from AWS
+        @queues = @queue_names.inject([]) { |queues, name| queues << QueueWrapper.instantiate(name) } # reset cache & fetch queues from AWS
       else
         @counter += 1
         @queues

@@ -1,7 +1,7 @@
 require "FanSQS/pool"
 require "FanSQS/version"
 require "FanSQS/message_parser"
-require "FanSQS/local_queue"
+require "FanSQS/queue_wrapper"
 require "FanSQS/queues_cache"
 require "FanSQS/poller"
 require "FanSQS/worker"

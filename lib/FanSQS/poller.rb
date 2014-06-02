@@ -34,7 +34,7 @@ module FanSQS
         error_message = { class: message[:class],
                           arguments: message[:arguments],
                           stack_trace: exception.backtrace.join("\n") }
-        queue = FanSQS::LocalQueue.instantiate(FanSQS::ErrorQueue)
+        queue = FanSQS::QueueWrapper.instantiate(FanSQS::ErrorQueue)
         queue.send_message(error_message.to_json)
       end
     end

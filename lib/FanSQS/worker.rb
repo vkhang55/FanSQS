@@ -12,7 +12,7 @@ module FanSQS
         FanSQS.pool.schedule do # Allows for multiple concurrent (non-blocking) HTTP requests to SQS
           queue, sent_message = nil
           qname = fan_sqs_options_hash ? fan_sqs_options_hash[:queue] : :fan_sqs_queue
-          queue = FanSQS::LocalQueue.instantiate(qname)
+          queue = FanSQS::QueueWrapper.instantiate(qname)
           params = { class: self.name, arguments: args }
           sent_message = queue.send_message(params.to_json) while sent_message.try(&:md5) == nil # retry until receives sent_message confirmation
         end

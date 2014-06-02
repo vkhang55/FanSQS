@@ -1,5 +1,5 @@
 module FanSQS
-  class LocalQueue
+  class QueueWrapper
     @@cache ||= {} # cache for queues
 
     class << self
