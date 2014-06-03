@@ -7,7 +7,7 @@ describe FanSQS::QueueWrapper do
 
   describe "#exists?" do
     context "cached" do
-      it "returns a named queue from @cache" do
+      it "should returns a named queue from @cache" do
         sample_queue = mocked_queue
         FanSQS::QueueWrapper.instance_variable_set(:@cache, {:sample_qname => sample_queue})
         expect(FanSQS::QueueWrapper.exists?(:sample_qname)).to eq(sample_queue)
@@ -15,11 +15,21 @@ describe FanSQS::QueueWrapper do
     end
 
     context "not cached" do
-      it "returns fetches the queue from AWS"
-    end
+      before do
+        FanSQS::QueueWrapper.instance_variable_set(:@cache, {}) #empty cache
+      end
 
-    context "non-existent queue" do
-      it "raises error AWS::SQS::Errors::NonExistentQueue and returns false"
+      it "should returns fetches the queue from AWS" do
+        expect_any_instance_of(AWS::SQS::QueueCollection).to receive(:named)
+        FanSQS::QueueWrapper.exists?(:sample_qname)
+      end
+
+      context "non-existent queue" do
+        it "raises error AWS::SQS::Errors::NonExistentQueue and returns false" do
+          stub_retrieving_named_queues_raise_exception
+          FanSQS::QueueWrapper.exists?(:sample_qname)
+        end
+      end
     end
   end
 

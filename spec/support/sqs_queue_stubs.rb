@@ -12,6 +12,12 @@ module SQSQueueStubs
   end
 
   # stubbed for 
+  #     AWS::SQS.new.queues.named(qname)
+  def stub_retrieving_named_queues_raise_exception
+    allow_any_instance_of(AWS::SQS::QueueCollection).to receive(:named).with(an_instance_of(String)).and_raise(AWS::SQS::Errors::NonExistentQueue)
+  end
+
+  # stubbed for 
   #     AWS.sqs.queues.named(formatted_queue_name(qname))
   def stub_retrieving_named_queues_2
     stub_retrieving_named_queues
