@@ -1,6 +1,6 @@
 module FanSQS
   class QueueWrapper
-    @@cache ||= {} # cache for queues
+    @cache ||= {} # cache for queues
 
     class << self
       # Find out if the queue exists. If it does not exist, create a new one
@@ -11,18 +11,21 @@ module FanSQS
       end
 
       def create_new(name)
+          puts "GOT HERE3"
         AWS.sqs.queues.create(name.to_s)
       end
 
       def cache
-        @@cache
+        @cache
       end
 
       def exists?(qname)
-        if @@cache[qname]
-          return @@cache[qname]
+        if @cache[qname]
+          puts "GOT HERE1"
+          return @cache[qname]
         else
-          return @@cache[qname] = AWS.sqs.queues.named(formatted_queue_name(qname)) while @@cache[qname] == nil
+          puts "GOT HERE2"
+          return @cache[qname] = AWS.sqs.queues.named(formatted_queue_name(qname)) while @cache[qname] == nil
         end
       rescue AWS::SQS::Errors::NonExistentQueue
         return false
