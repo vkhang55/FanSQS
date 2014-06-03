@@ -11,7 +11,6 @@ module FanSQS
       end
 
       def create_new(name)
-          puts "GOT HERE3"
         AWS.sqs.queues.create(name.to_s)
       end
 
@@ -21,10 +20,8 @@ module FanSQS
 
       def exists?(qname)
         if @cache[qname]
-          puts "GOT HERE1"
           return @cache[qname]
         else
-          puts "GOT HERE2"
           return @cache[qname] = AWS.sqs.queues.named(formatted_queue_name(qname)) while @cache[qname] == nil
         end
       rescue AWS::SQS::Errors::NonExistentQueue
