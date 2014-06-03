@@ -28,6 +28,7 @@ module FanSQS
         return false
       end
 
+      private
       def formatted_queue_name(qname)
         qname.to_s
       end
