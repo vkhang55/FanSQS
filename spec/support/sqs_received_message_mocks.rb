@@ -1,7 +1,7 @@
 module SQSReceivedMessageMocks
   def mocked_received_message(name = 'received_message')
     received_message = double(name)
-    received_message.stub(:body).and_return(
+    allow(received_message).to receive(:body).and_return(
       {
         class: 'MessagePublisher',
         arguments: [ name ]

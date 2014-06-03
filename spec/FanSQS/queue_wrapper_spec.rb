@@ -6,6 +6,6 @@ describe FanSQS::QueueWrapper do
   end
 
   it "formats symbol to string qname" do
-    FanSQS::QueueWrapper.send(:formatted_queue_name, :symbol).should be_an_instance_of(String)
+    expect(FanSQS::QueueWrapper.send(:formatted_queue_name, :symbol)).to be_an_instance_of(String)
   end
 end
