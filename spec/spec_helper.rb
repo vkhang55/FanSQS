@@ -17,7 +17,6 @@ RSpec.configure do |config|
   config.include SQSQueueMocks
   config.include SQSQueueStubs
   config.include SQSReceivedMessageMocks
-  config.include SQSReceivedMessageStubs
   config.include SQSSentMessageMocks
 
   # Run specs in random order to surface order dependencies. If you find an
