@@ -1,3 +1,4 @@
 TO-DOs
 ======
 1. Add rake task to start poller
+2. Allow Poller to start with queues using multiple prefixes

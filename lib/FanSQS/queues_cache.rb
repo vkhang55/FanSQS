@@ -50,7 +50,7 @@ module FanSQS
       if qnames.is_a?(Array)
         qnames
       else
-        qnames.split(',').uniq
+        qnames.to_s.split(',').uniq
       end
     end
   end

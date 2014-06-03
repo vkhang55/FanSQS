@@ -27,7 +27,7 @@ describe FanSQS::QueueWrapper do
       context "non-existent queue" do
         it "should raise exception AWS::SQS::Errors::NonExistentQueue and returns false" do
           stub_retrieving_named_queues_raise_exception
-          FanSQS::QueueWrapper.exists?(:sample_qname).should eq(false)
+          expect(FanSQS::QueueWrapper.exists?(:sample_qname)).to eq(false)
         end
       end
     end
