@@ -18,3 +18,4 @@ tmp
 *.swp
 *.swo
 Session.vim
+dump.rdb

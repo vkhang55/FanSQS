@@ -32,8 +32,9 @@ module SQSQueueStubs
   # stubbed for 
   #     AWS::SQS::Client.new.list_queues[:queue_urls]
   def stubs_client_list_queues
-    queue_urls = ["https://sqs.us-east-1.amazonaws.com/1/queue1", "https://sqs.us-east-1.amazonaws.com/2/queue2", "https://sqs.us-east-1.amazonaws.com/3/queue3"] 
-    allow_any_instance_of(AWS::SQS::Client).to receive(:list_queues[]).with(an_instance_of(Symbol)).and_return(queue_urls)
+    queue_urls = { queue_urls: ["https://sqs.us-east-1.amazonaws.com/1/queue_1", "https://sqs.us-east-1.amazonaws.com/2/queue_2", "https://sqs.us-east-1.amazonaws.com/3/queue_3"] }
+    # allow_any_instance_of(AWS::SQS::Client).to receive(:list_queues[:queue_urls]).with([:queue_urls]).and_return(queue_urls)
+    allow_any_instance_of(AWS::SQS::Client::V20121105).to receive(:list_queues).and_return(queue_urls)
   end
 
   # stub for

@@ -2,6 +2,8 @@
 # AWS for new queues. It will ping AWS only every X times.
 module FanSQS
   class QueuesCache
+    RESET_THRESHOLD = 20000
+
     def initialize(qnames)
       @sqs_client ||= AWS::SQS::Client.new
       @qnames = resolve_qnames(qnames)
@@ -20,7 +22,7 @@ module FanSQS
     private
     # Fetch all queues except for the queue equals to FanSQS::ErrorQueue
     def fetch_all_queues
-      if @counter % 20000 == 0
+      if @counter % RESET_THRESHOLD == 0
         @counter = 1 # reset counter
         @queue_names = @sqs_client.list_queues[:queue_urls].map { |q| q.split('/').last }.uniq
         @queue_names.reject! { |name| name == FanSQS::ErrorQueue.to_s } # do not include the error queue
