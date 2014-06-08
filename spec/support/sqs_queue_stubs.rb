@@ -7,6 +7,7 @@ module SQSQueueStubs
 
   # stubbed for 
   #     AWS::SQS.new.queues.named(qname)
+  #     AWS.sqs.queues.named(formatted_queue_name(qname))
   def stub_retrieving_named_queues
     allow_any_instance_of(AWS::SQS::QueueCollection).to receive(:named).with(an_instance_of(String)).and_return(mocked_queue)
   end
@@ -18,22 +19,15 @@ module SQSQueueStubs
   end
 
   # stubbed for 
-  #     AWS.sqs.queues.named(formatted_queue_name(qname))
-  def stub_retrieving_named_queues_2
-    stub_retrieving_named_queues
-  end
-
-  # stubbed for 
   #     AWS::SQS.new.queues.with_prefix(qname.split('*').first)
-  def stubs_retrieving_queues_with_prefix
-    allow_any_instance_of(AWS::SQS::QueueCollection).to receive(:with_refix).with(an_instance_of(String)).and_return(mock_queue_collection)
+  def stub_retrieving_queues_with_prefix
+    allow_any_instance_of(AWS::SQS::QueueCollection).to receive(:with_refix).with(any_args).and_return(mocked_queue_collection)
   end
 
   # stubbed for 
   #     AWS::SQS::Client.new.list_queues[:queue_urls]
-  def stubs_client_list_queues
+  def stub_client_list_queues
     queue_urls = { queue_urls: ["https://sqs.us-east-1.amazonaws.com/1/queue_1", "https://sqs.us-east-1.amazonaws.com/2/queue_2", "https://sqs.us-east-1.amazonaws.com/3/queue_3"] }
-    # allow_any_instance_of(AWS::SQS::Client).to receive(:list_queues[:queue_urls]).with([:queue_urls]).and_return(queue_urls)
     allow_any_instance_of(AWS::SQS::Client::V20121105).to receive(:list_queues).and_return(queue_urls)
   end
 

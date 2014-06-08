@@ -50,7 +50,7 @@ module FanSQS
 
     def resolve_qnames(qnames)
       if qnames.is_a?(Array)
-        qnames
+        qnames.map(&:to_s)
       else
         qnames.to_s.split(',').uniq
       end

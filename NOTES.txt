@@ -2,3 +2,5 @@ TO-DOs
 ======
 1. Add rake task to start poller
 2. Allow Poller to start with queues using multiple prefixes
+3. Priority queues
+4. Auto retries on error
