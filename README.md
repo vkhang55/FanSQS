@@ -1,6 +1,6 @@
 # FanSQS
 
-TODO: Write a gem description
+FanSQS is a background job processing engine for Ruby using [AWS SQS](http://aws.amazon.com/sqs/) for message storage.
 
 ## Installation
 
