@@ -50,6 +50,7 @@ MessagePublisher.perform_async(arg1, arg2, ...)
 1. Rake task to start poller
 2. Priority queues
 3. Auto retries on error
+4. Hook up to Travis
 
 ## Contributing
 
