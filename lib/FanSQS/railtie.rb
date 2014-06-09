@@ -1,7 +1,7 @@
 module FanSQS
   class Railtie < Rails::Railtie
     rake_tasks do
-      load "tasks/FanSQS.rake"
+      load File.expand_path(File.dirname(__FILE__) + "/tasks/FanSQS.rake")
     end
   end
 end
