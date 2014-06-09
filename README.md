@@ -54,7 +54,7 @@ To start polling for jobs, simply call either one of the following commands:
 
 ## Running tests
 
-In the command line, run this command to return the number of specs passed & failed. All tests should pass :)
+In the command line, run this command to return the number of specs passed & failed. All tests should pass!
 
 ```bash
 > rspec
