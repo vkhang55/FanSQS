@@ -54,7 +54,7 @@ To start polling for jobs, simply call either one of the following commands:
 
 ## Features to add
 
-1. Rake task to start poller
+1. Rake task to start polling for specific queues
 2. Priority queues
 3. Auto retries on error
 4. Hook up to Travis
