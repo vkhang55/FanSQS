@@ -15,10 +15,18 @@ And then execute:
 Or install it yourself as:
 
     $ gem install FanSQS
+    
+## Rails Setup
+
+Create a **config/initializer.rb** file in your application directory and insert this line:
+
+```ruby
+AWS.config( access_key_id: '<your_access_key_id>', secret_access_key: '<your_secret_access_key>')
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+FanSQS integrates seemlessly with your applications. 
 
 ## Contributing
 
