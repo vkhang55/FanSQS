@@ -45,6 +45,13 @@ To push jobs into an SQS queue for processing, simply call:
 MessagePublisher.perform_async(arg1, arg2, ...)
 ```
 
+To start polling for jobs, simply call either one of the following commands:
+
+```bash
+> rake FanSQS:start_polling
+> bundle exec rake FanSQS:start_polling # alternative
+```
+
 ## Features to add
 
 1. Rake task to start poller
