@@ -22,3 +22,5 @@ module FanSQS
   end
   self.pool = Pool.new(100)
 end
+
+require 'FanSQS/railtie' if defined?(Rails) # include FanSQS Rake task if Rails is defined
