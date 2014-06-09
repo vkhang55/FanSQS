@@ -1,6 +1,0 @@
-TO-DOs
-======
-1. Add rake task to start poller
-2. Priority queues
-3. Auto retries on error
-4. Hook up Travis
