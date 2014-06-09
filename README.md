@@ -26,7 +26,7 @@ AWS.config( access_key_id: '<your_access_key_id>', secret_access_key: '<your_sec
 
 ## Usage
 
-FanSQS integrates seemlessly with your Rails applications. Just **include** the module **FanSQS::Worker** in the class that encapsulates your job logic and define a class method called **perform**. The method **perform** should be able to accept any number of parameters of any type.
+FanSQS integrates seemlessly with your Rails applications. Just *include* the module **FanSQS::Worker** in the class that encapsulates your job logic and define a class method called *perform*. The method *perform* should be able to accept any number of parameters of any type.
 
 ```ruby
 class MessagePublisher
