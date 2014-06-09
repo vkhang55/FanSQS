@@ -50,8 +50,6 @@ MessagePublisher.perform_async(arg1, arg2, ...)
 1. Fork it ( http://github.com/<my-github-username>/FanSQS/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-=======
-FanSQS
-======
+4. Test coverage for your changes. Sorry I will not merge changes without test coverage!
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request
