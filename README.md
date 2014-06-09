@@ -45,6 +45,12 @@ To push jobs into an SQS queue for processing, simply call:
 MessagePublisher.perform_async(arg1, arg2, ...)
 ```
 
+## Features to add
+
+1. Rake task to start poller
+2. Priority queues
+3. Auto retries on error
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/FanSQS/fork )
